@@ -11,7 +11,7 @@ Complete a latin square with some extea greater-than constraints.
 [Solver](futoshiki)
 
 
-## Solve 1579
+## Solve 1567
 
 Using only the four numbers 1, 5, 6, 7 form an expression with just +, -, *, / that yields 21.
 

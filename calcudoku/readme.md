@@ -2,8 +2,6 @@
 
 Calcudoku is a sort of crossword puzzle with numbers.
 
-![Example Futoshiki puzzle](futoshiki-example.png)
-
 See for example the website [https://www.calcudoku.org](https://www.calcudoku.org).
 
 
