@@ -11,10 +11,10 @@ The Futoshiki puzzle
 
 In a board of size ORDER, there are ORDER rows and ORDER columns.
 The aim is to place the symbols 1..ORDER in each row and each column.
-As an extra constraint, sometimes a relation in imposed on two 
-neighboring cells (east-west) or north-south). The relation is
+As an extra constraint, sometimes a relation is imposed on two 
+neighboring cells (east-west or north-south). The relation is
 either less-than or greater-than.
-As a starter, some cell values are already given.
+As a starter, some cell values msy have been given.
 
     +--+ +--+ +--+ +--+ +--+ +--+
     |  | |  | |4 | |  | |  |<|  | 
@@ -96,19 +96,19 @@ done (1)
 Implementation
 
 We number the rows and columns 0..ORDER-1. We number the cells 
-0..ORDER*ORDER-1. We have a global variable board that holds the cells, 
+0..ORDER*ORDER-1. We have a global variable board[] that holds the cells, 
 i.e. it contains the symbols 1..ORDER. To make it easier to test if
 we can place a symbol in a row or column, we have two arrays
 rowsyms[ORDER], and colsyms[ORDER] that store a mask: bit i is set if
 symbol i occurs in that row/column. Finally, we have 4 boolean arrays 
 for the constraints. We associate the constraints with the most right-lower 
-cell. The 4 arrays have the same size as the board.
+cell of the two. The 4 arrays have the same size as the board.
  - bool lessthan_northneighbor[]
  - bool greaterthan_northneighbor[]
  - bool lessthan_westneighbor[]
  - bool greaterthan_westneighbor[]
 
-The above puzzle is then numbered as follows
+The above puzzle is then described as follows
             +--+ +--+ +--+ +--+ +--+ +--+
 board[ 2]=4 |  | |  | |4 | |  | |  |<|  | greaterthan_westneighbor[5]
             |00| |01| |02| |03| |04| |05| 
@@ -175,11 +175,10 @@ void setup() {
   lessthan_westneighbor[27]= true;
   lessthan_westneighbor[32]= true;
   greaterthan_northneighbor[33]= true;
-  
 }
 
 
-// Printing board, with constraints (but without cell borders)
+// Printing board with constraints, of `debug` is true also prints the cell index snd masks.
 void print(bool debug) {
   // The column symbols
   if( debug ) {
@@ -248,7 +247,7 @@ void print(bool debug) {
 }
 
 
-// Init the rowsyms[] and colsyms[]
+// Init the rowsyms[] and colsyms[] once setup() is done.
 void init() {
   for( int cellindex=0; cellindex<NUMCELLS; cellindex++ ) {
     int x= cellindex % ORDER;
@@ -264,7 +263,6 @@ void init() {
 
 // Print all solutions
 int solutions;
-int printindex;
 void solve(int cellindex) {
   if( cellindex==NUMCELLS ) { printf("Solution %d\n",++solutions); print(false); return; }
   
